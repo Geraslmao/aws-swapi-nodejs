@@ -1,0 +1,44 @@
+service: swapi-test
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  iam:
+    role:
+      statements:
+      - Effect: Allow
+        Action:
+          - dynamodb:*
+        Resource:
+          - arn:aws:dynamodb:us-east-1:637423257566:table/SwapiDB
+
+functions:
+  create:
+    handler: src/service/saveSwapi.post
+    events:
+      - httpApi:
+          path: /save/{id}
+          method: post
+
+  obtain:
+    handler: src/service/getSwapi.get
+    events:
+      - httpApi:
+          path: /obtain
+          method: get
+
+
+resources:
+  Resources:
+    SwapiDB:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: SwapiDB
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH

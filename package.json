@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "aws-sdk": "^2.1555.0",
+    "axios": "^1.6.7",
+    "express": "^4.18.2",
+    "google-translate-api": "^0.1.1",
+    "lodash": "^4.17.21",
+    "uuid": "^9.0.1"
+  }
+}
